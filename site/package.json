@@ -1,0 +1,15 @@
+{
+  "name": "stash-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stash Mada - Independent React + Express E-commerce Application",
+  "scripts": {
+    "start": "NODE_ENV=production node backend/server.js",
+    "build": "cd frontend && npm run build && cd ..",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "setup": "powershell -ExecutionPolicy Bypass -File start.ps1 -Mode dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
