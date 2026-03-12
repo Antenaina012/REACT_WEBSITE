@@ -30,19 +30,7 @@ frontend/
 
 ## Installation
 
-1. Accédez au répertoire du frontend:
-```bash
-cd frontend
-```
-
-2. Installez les dépendances:
-```bash
 npm install
-```
-
-3. Créez un fichier `.env` basé sur `.env.example`:
-```bash
-cp .env.example .env
 ```
 
 ## Démarrage du serveur de développement
@@ -52,7 +40,6 @@ npm run dev
 ```
 
 L'application sera accessible à `http://localhost:5173`
-
 ## Build pour la production
 
 ```bash
@@ -60,7 +47,8 @@ npm run build
 ```
 
 Les fichiers optimisés seront générés dans le dossier `dist/`.
-
+# notes:
+#   - le formulaire de connexion (et d'inscription) demande désormais des informations de paiement et les stocke dans le contexte utilisateur
 ## Fonctionnalités
 
 - ✅ Page d'accueil avec showcase des produits
@@ -69,6 +57,8 @@ Les fichiers optimisés seront générés dans le dossier `dist/`.
 - ✅ Design responsive
 - ✅ Navigation fluide avec React Router
 - ✅ État global avec React Context
+ - ✅ État global avec React Context
+ - ✅ Ajout de quantités personnalisées : une fenêtre demande combien d'unités ajouter au panier
 
 ## Technologies utilisées
 
@@ -108,6 +98,7 @@ Gère le panier d'achat.
 
 ```jsx
 const { cart, addToCart, removeFromCart, updateQuantity, clearCart, total } = useCart();
+// addToCart(product, quantity) permet d'ajouter un montant variable
 ```
 
 ## Integration avec le backend

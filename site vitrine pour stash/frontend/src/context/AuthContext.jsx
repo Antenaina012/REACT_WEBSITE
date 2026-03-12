@@ -8,11 +8,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleLogin = useCallback(async (email, password) => {
+  const handleLogin = useCallback(async (email, password, paymentInfo) => {
     setLoading(true);
     setError(null);
     try {
       const userData = await login(email, password);
+      // attach payment info locally (not stored on server)
+      if (paymentInfo) {
+        userData.payment = paymentInfo;
+      }
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       return userData;

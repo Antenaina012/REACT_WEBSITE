@@ -1,8 +1,10 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import './HomePage.css';
 
+// base collection available to everyone
 const PRODUCTS = [
   {
     id: 1,
@@ -38,7 +40,30 @@ const PRODUCTS = [
   },
 ];
 
+// additional articles réservés aux utilisateurs connectés
+const PREMIUM_PRODUCTS = [
+  {
+    id: 5,
+    image: '/images/maki-royal.svg',
+    imageAlt: 'Maki Royal',
+    name: 'Maki Royal (Premium)',
+    description: 'Edition limitée avec couronne dorée, réservée aux membres.',
+    price: '120 000 Ar',
+    premium: true,
+  },
+  {
+    id: 6,
+    image: '/images/maki-noir.svg',
+    imageAlt: 'Maki Noir',
+    name: 'Maki Noir (Premium)',
+    description: 'Peluches noire ultra-rare pour clients privilégiés.',
+    price: '150 000 Ar',
+    premium: true,
+  },
+];
+
 export default function HomePage() {
+  const { user } = useAuth();
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -58,6 +83,10 @@ export default function HomePage() {
           <h2>Collection Maki — Peluches Malgaches</h2>
           <div className="products-grid">
             {PRODUCTS.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+            {/* show premium items only when the user is authenticated */}
+            {user && PREMIUM_PRODUCTS.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

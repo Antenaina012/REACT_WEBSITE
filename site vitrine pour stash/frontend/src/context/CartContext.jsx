@@ -5,15 +5,19 @@ export const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  const addToCart = useCallback((product) => {
+  // quantity parameter allows adding multiple units at once
+  const addToCart = useCallback((product, quantity = 1) => {
+    if (quantity <= 0) return; // nothing to add
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
       if (existing) {
         return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity }];
     });
   }, []);
 

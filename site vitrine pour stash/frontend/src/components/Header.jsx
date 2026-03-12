@@ -6,7 +6,8 @@ import './Header.css';
 
 export default function Header() {
   const { user, logout } = useAuth();
-  const { cart } = useCart();
+  // pull both the cart array and the derived totalCount value directly
+  const { cart, totalCount } = useCart();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -36,7 +37,7 @@ export default function Header() {
 
           <div className="nav-right">
             <Link to="/cart" className="cart-badge">
-              🛒 ({cart.totalCount || 0})
+              🛒 ({totalCount || 0})
             </Link>
             {user ? (
               <div className="user-menu">

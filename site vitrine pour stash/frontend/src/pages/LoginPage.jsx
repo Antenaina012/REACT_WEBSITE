@@ -9,6 +9,9 @@ export default function LoginPage() {
     nom: '',
     email: '',
     mot_de_passe: '',
+    card_number: '',
+    card_expiry: '',
+    card_cvv: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,14 +35,25 @@ export default function LoginPage() {
 
     try {
       if (isLogin) {
-        await login(formData.email, formData.mot_de_passe);
+        // pass payment information along with the credentials
+        await login(formData.email, formData.mot_de_passe, {
+          card_number: formData.card_number,
+          card_expiry: formData.card_expiry,
+          card_cvv: formData.card_cvv,
+        });
+        // context now holds the user object with payment info
       } else {
+        // when signing up we only need name/email/password for the backend
         await signup(formData.nom, formData.email, formData.mot_de_passe);
-        setIsLogin(true);
+        // automatically log the new user in (and attach payment info) so they don't have to
+        await login(formData.email, formData.mot_de_passe, {
+          card_number: formData.card_number,
+          card_expiry: formData.card_expiry,
+          card_cvv: formData.card_cvv,
+        });
+        // reset form data, no explicit error message needed since we navigated below
         setFormData({ nom: '', email: '', mot_de_passe: '' });
-        setError('Inscription réussie! Veuillez vous connecter.');
-        setTimeout(() => setError(''), 3000);
-        return;
+        // fall through to navigation
       }
       navigate('/');
     } catch (err) {
@@ -114,6 +128,47 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 minLength="6"
               />
+            </div>
+
+            {/* payment info always requested */}
+            <div className="form-group">
+              <label htmlFor="card_number">Numéro de carte</label>
+              <input
+                type="text"
+                id="card_number"
+                name="card_number"
+                value={formData.card_number}
+                onChange={handleChange}
+                required
+                placeholder="0000 0000 0000 0000"
+              />
+            </div>
+            <div className="form-row">
+              <div className="form-group small">
+                <label htmlFor="card_expiry">Expiration</label>
+                <input
+                  type="text"
+                  id="card_expiry"
+                  name="card_expiry"
+                  value={formData.card_expiry}
+                  onChange={handleChange}
+                  required
+                  placeholder="MM/AA"
+                />
+              </div>
+              <div className="form-group small">
+                <label htmlFor="card_cvv">CVV</label>
+                <input
+                  type="text"
+                  id="card_cvv"
+                  name="card_cvv"
+                  value={formData.card_cvv}
+                  onChange={handleChange}
+                  required
+                  placeholder="123"
+                  maxLength="4"
+                />
+              </div>
             </div>
 
             <button
