@@ -1,0 +1,147 @@
+body {
+    height: 100vh;
+    background-color: #6e6eaf85;
+    font-family: Arial, sans-serif;
+}
+
+.bodyContent{
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bigtitle strong {
+    font-family: cursive;
+    font-size: 10vh;
+}
+
+.calculator {
+
+    background-color: #7067677e;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
+
+.display input {
+    width: 96%;
+    height: 60px;
+    font-size: 2rem;
+    text-align: right;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    background: #222;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: center;
+}
+
+button {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: #8d676785;
+    color: white;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #777;
+}
+
+.btn-operator {
+    background-color: #ff9500;
+}
+
+.btn-operator:hover {
+    background-color: #e08400;
+}
+
+.btn-clear {
+    background-color: #ff3b30;
+}
+
+.btn-equal {
+    background-color: #34c759;
+}
+
+.btn-zero {
+    grid-column: span 1;
+}
+
+.ai-assistant {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    width: 320px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-ai{
+    margin-left: 75%;
+}
+
+.ai-input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.response-box {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #444;
+    background: #f9f9f9;
+    padding: 10px;
+    border-left: 4px solid #34c759;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+#formula-menu {
+    width: 320px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ff9500;
+    background: #222;
+    color: white;
+}
+
+.graph-container {
+    width: 400px;
+    height: 300px;
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-graph {
+    background-color: #007aff;
+    color: white;
+    grid-column: span 2;
+}
+
+.graph{
+    margin-left: 40%;
+    margin-top: 1%;
+}

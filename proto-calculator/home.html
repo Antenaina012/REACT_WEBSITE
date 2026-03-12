@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice Intelligente - Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="headBar">
+        <h1><strong>Mathrix</strong></h1>        
+    </div>
+
+    <div class="main-container">
+        <div class="calc-container">
+            <div class="screen">
+                <input type="text" id="display" placeholder="0" autocomplete="off">
+                <div id="steps-area" class="steps">Prêt à t'aider...</div>
+            </div>
+            <div class="keypad">
+                <button onclick="clearScreen()" class="btn-special">AC</button>
+                <button onclick="append('(')">(</button>
+                <button onclick="append(')')">)</button>
+                <button onclick="append('/')" class="btn-op">÷</button>
+                
+                <button onclick="append('7')">7</button>
+                <button onclick="append('8')">8</button>
+                <button onclick="append('9')">9</button>
+                <button onclick="append('*')" class="btn-op">×</button>
+                
+                <button onclick="append('4')">4</button>
+                <button onclick="append('5')">5</button>
+                <button onclick="append('6')">6</button>
+                <button onclick="append('-')" class="btn-op">-</button>
+                
+                <button onclick="append('1')">1</button>
+                <button onclick="append('2')">2</button>
+                <button onclick="append('3')">3</button>
+                <button onclick="append('+')" class="btn-op">+</button>
+                
+                <button onclick="append('0')">0</button>
+                <button onclick="append('.')">.</button>
+                <button onclick="append('x')" class="btn-x">x</button>
+                <button onclick="append('=')" class="btn-op">=</button>
+                
+                <button onclick="solve()" class="btn-solve">EXPLIQUER L'ÉTAPE</button>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <h3 id="graph-title">Représentation Graphique</h3>
+            <p id="graph-caption">Veuillez entrer une équation (type `ax + b = c`) pour générer le graphique.</p>
+            <button onclick="showGraph()" class="btn-graph">Afficher Graphique</button>
+            <div class="canvas-wrapper">
+                 <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice Moderne</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bigtitle">
+        <strong>
+            MathPulse :
+        </strong>
+
+    </div>
+<select id="formula-menu" onchange="applyFormula()" style="width:100%; margin-bottom:10px; padding:12px; border-radius:8px; border:2px solid #007aff;">
+    <option value="">-- 📚 Bibliothèque Complète (3è à Tle) --</option>
+    
+    <optgroup label="ALGÈBRE & ARITHMÉTIQUE">
+        <option value="(a + b)^2">Identité : (a+b)²</option>
+        <option value="(a - b)^2">Identité : (a-b)²</option>
+        <option value="a^2 - b^2">Identité : a²-b²</option>
+        <option value="gcd(a, b)">PGCD (Plus Grand Commun Diviseur)</option>
+    </optgroup>
+
+    <optgroup label="SECOND DEGRÉ (1ère/Tle)">
+        <option value="b^2 - 4*a*c">Discriminant Δ (Delta)</option>
+        <option value="(-b + sqrt(delta)) / (2*a)">Racine x1</option>
+        <option value="-b / (2*a)">Sommet de parabole (Alpha)</option>
+    </optgroup>
+
+    <optgroup label="FONCTIONS & ANALYSE">
+        <option value="exp(x)">Fonction Exponentielle</option>
+        <option value="log(x)">Logarithme Népérien (ln)</option>
+        <option value="derivative(f(x), x)">Dérivée de f(x)</option>
+        <option value="1/x">Fonction Inverse</option>
+        <option value="sqrt(x)">Fonction Racine Carrée</option>
+    </optgroup>
+
+    <optgroup label="GÉOMÉTRIE & TRIGONOMÉTRIE">
+        <option value="sqrt(a^2 + b^2)">Pythagore (Hypoténuse)</option>
+        <option value="sin(x)">Sinus</option>
+        <option value="cos(x)">Cosinus</option>
+        <option value="tan(x)">Tangente</option>
+        <option value="pi * r^2">Aire d'un disque</option>
+    </optgroup>
+
+    <optgroup label="PROBABILITÉS">
+        <option value="n! / (k! * (n-k)!)">Combinaisons (n k)</option>
+        <option value="n! / (n-k)!">Arrangements</option>
+    </optgroup>
+</select>
+
+            
+<div class="bodyContent">
+
+ <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" disabled>
+        </div>
+        <div class="buttons">
+            <button onclick="clearDisplay()" class="btn-clear">C</button>
+            <button onclick="deleteLast()"><i class="fa-solid fa-delete-left"></i></button>
+
+            <button onclick="appendToDisplay('-')" class="btn-operator">-</button>
+
+            <button onclick="appendToDisplay('+')" class="btn-operator">+</button>
+
+
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+
+            <button onclick="appendToDisplay('*')" class="btn-operator">*</button>
+            
+
+
+
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            
+            <button onclick="appendToDisplay('/')" class="btn-operator">/</button>
+
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+        
+            <button onclick="appendToDisplay('.')">.</button>
+        
+            <button onclick="appendToDisplay('0')" class="btn-zero">0</button>
+
+
+
+
+
+        
+            <button onclick="calculate()" class="btn-equal">=</button>
+        </div>
+    </div>
+
+    <div class="ai-assistant">
+    <h3>Assistant IA Scolaire</h3>
+    <input type="text" id="ai-input" placeholder="Ex: résoudre x^2 + 2x - 3 = 0">
+    <button onclick="askAI()" class="btn-ai">Résoudre</button>
+    <div id="ai-response" class="response-box"></div>
+    <select id="formula-menu" onchange="askAIWithFormula(this.value)" style="width:100%; margin-bottom:10px; padding:12px; border-radius:8px; border:2px solid #34c759;">
+    <option value=""> Résoudre avec l'IA </option>
+    <optgroup label="Analyse">
+        <option value="derivative(x^2 + 3x + 2, x)">Dériver x² + 3x + 2</option>
+        <option value="simplify( (x^2 - 1) / (x + 1) )">Simplifier une fraction</option>
+    </optgroup>
+    <optgroup label="Algèbre">
+        <option value="roots(x^2 - 5x + 6)">Trouver les racines de x²-5x+6</option>
+        <option value="expand((x + 4)^2)">Développer (x+4)²</option>
+    </optgroup>
+</select>
+
+<div id="ai-assistant-box" style="background: #f0f7ff; padding: 15px; border-radius: 10px; border-left: 5px solid #007aff; margin-top: 10px; display: none;">
+    <h4 style="margin-top:0;">Solution de l'Assistant MathPulse :</h4>
+    <p id="ai-result-text" style="font-family: monospace;"></p>
+    <button onclick="drawGraphFromAI()" id="btn-graph-ai" style="display:none; background:#007aff; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">Tracer la courbe</button>
+</div>
+</div>
+
+    <div style="width: 100%; max-width: 400px; margin-top: 20px; background: white; border-radius: 10px;">
+        <button onclick="drawGraph()" style="background-color: #007aff; color: white; grid-column: span 2;" class="graph">Tracer f(x)</button>
+    <canvas id="myChart"></canvas>
+    </div>
+
+</div>
+
+   
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+</body>
+</html>
